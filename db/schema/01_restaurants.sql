@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS restaurants CASCADE;
+CREATE TABLE restaurants (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  street VARCHAR(255) NOT NULL,
+  street_number VARCHAR(255) NOT NULL,
+  phone_number VARCHAR(50) NOT NULL,
+  logo_url VARCHAR(255) NOT NULL,
+  thumbnail_url VARCHAR(255) NOT NULL,
+  open_time VARCHAR(255) NOT NULL,
+  close_time VARCHAR(255) NOT NULL
+);
