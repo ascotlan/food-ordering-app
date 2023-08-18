@@ -13,4 +13,11 @@ const getUser = (id) => {
   });
 };
 
-module.exports = { getUsers };
+const getUserType = (id) => {
+  return db.query('SELECT restaurant_admin, users.restaurant_id FROM users WHERE users.id = $1;', [id])
+    .then(data => {
+      return data.rows;
+    });
+};
+
+module.exports = { getUsers, getUserType };
