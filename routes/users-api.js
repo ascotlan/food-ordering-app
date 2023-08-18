@@ -13,8 +13,8 @@ const userQueries = require("../db/queries/users");
 router.get("/:id", (req, res) => {
   // do a query to SELECT name, restaurant_admin, last 3 orders,
   // do another query  to Read all restaurants
-  let restaturant;
-  let orderHistory;
+  // let restaturant;
+  // let orderHistory;
   // userQueries
   //     .getRestaurants()
   //     .then((data) => {
@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => {
       street: "Kfc Avenue",
       street_number: "123",
       phone_number: "555-555-5555",
-      logo_url,
+      logo_url: "",
       thumbnail_url: "",
     },
   });
