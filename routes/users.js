@@ -14,11 +14,12 @@ router.get("/login/:id", (req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.id;
 
+  let user;
   //query user table for user type
   //userQueries
   //     .getUser(req.params.id)
-  //     .then((user) => {
-  //       //makes redirects
+  //     .then((data) => {
+  //       user = data;
   //     })
   //     .catch((err) => {
   //       res.status(500).json({ error: err.message });

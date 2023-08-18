@@ -33,6 +33,29 @@
   </head>
   <body>
     <%- include('partials/_header') %>
-    
+
+    <% for (let id in orderHistory) { %>
+      <aside>
+        <% if(orderHistory.mainPic){ %>
+          <h1>foo</h1>
+        <% } else{ %>
+          <h1>bar</h1>
+       <% } %>
+        <div>orderHistory[id].name</div>
+        <div>orderHistory[id]</div>
+      </aside>
+    <tr>
+      <td><%= id %></td>
+      <td><%= urls[id].longURL %></td>
+      <td>
+        <a href="<%= `/urls/${id}` %>" class="btn btn-outline-primary">Edit</a>
+      </td>
+      <td>
+        <form action="<%= `/urls/${id}/delete` %>" method="post">
+          <button class="btn btn-outline-danger" type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
   </body>
 </html>
