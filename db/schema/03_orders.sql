@@ -4,5 +4,8 @@ CREATE TABLE orders (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   restaurant_id INTEGER REFERENCES restaurants(id) ON DELETE CASCADE NOT NULL,
   order_date TIMESTAMP NOT NULL,
-  eta INTEGER
+  eta INTEGER,
+  pending BOOLEAN DEFAULT TRUE,
+  in_progress BOOLEAN DEFAULT FALSE,
+  completed BOOLEAN DEFAULT FALSE
 );
