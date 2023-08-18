@@ -1,0 +1,32 @@
+<header class="header">
+  <a href="#">
+    <img class="logo" src="/img/light.png" alt="OmniEats logo" />
+  </a>
+  <nav class="main-nav">
+    <ul class="main-nav-list">
+      <li>
+        <% if(user && !user.admin) { %>
+        <form action="/users/logout" method="post">
+          <p class="username">
+            Welcome
+            <span class="strong margin-right-sm"><%= user.name %>!</span>
+            <span
+              ><button class="btn btn--form" type="submit">Logout</button>
+            </span>
+          </p>
+        </form>
+        <% } %> <% if(user && user.admin) { %>
+        <form action="/users/logout" method="post">
+          <p class="username">
+            Welcome to
+            <span class="strong margin-right-sm">Admin Portal</span>
+            <span
+              ><button class="btn btn--form" type="submit">Logout</button>
+            </span>
+          </p>
+        </form>
+        <% } %>
+      </li>
+    </ul>
+  </nav>
+</header>
