@@ -6,7 +6,7 @@ CREATE TABLE users (
   name VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   restaurant_admin BOOLEAN DEFAULT FALSE,
-  restaurant_id INTEGER REFERENCES restaurants(id) NOT NULL ON DELETE CASCADE,
+  restaurant_id INTEGER REFERENCES restaurants(id) ON DELETE CASCADE,
   phone_number VARCHAR(50) NOT NULL,
   email VARCHAR(255) NOT NULL
 );
