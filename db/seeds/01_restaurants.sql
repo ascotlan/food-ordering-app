@@ -1,0 +1,2 @@
+INSERT INTO restaurants (name, city, street, street_number, phone_number, logo_url, thumbnail_url, open_time, close_time)
+VALUES ('Cactus Cafe', 'Toronto', 'Dundas', '12', '123-456-7890', 'https://images.pexels.com/photos/10251857/pexels-photo-10251857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/10251857/pexels-photo-10251857.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', '9:00 AM', '9:00 PM' );
