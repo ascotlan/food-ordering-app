@@ -15,15 +15,15 @@ router.get("/login/:id", (req, res) => {
   req.session.user_id = req.params.id;
 
   let user;
-  //query user table for user type
-  //userQueries
-  //     .getUser(req.params.id)
-  //     .then((data) => {
-  //       user = data;
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
+  // query user table for user type
+  // userQueries
+  //   .getUser(req.params.id)
+  //   .then((data) => {
+  //     user = data;
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ error: err.message });
+  //   });
 
   const queryResult = { user: { restaurant_id: 1, restaturant_admin: false } };
 

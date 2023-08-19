@@ -32,30 +32,53 @@
     ></script>
   </head>
   <body>
-    <%- include('partials/_header') %>
+    <%- include('partials/_header') %> <% if(orderHistory.length === 3) { %>
+    <h1 class="history-text center-text">Order History</h1>
 
-    <% for (let id in orderHistory) { %>
-      <aside>
-        <% if(orderHistory.mainPic){ %>
-          <h1>foo</h1>
-        <% } else{ %>
-          <h1>bar</h1>
-       <% } %>
-        <div>orderHistory[id].name</div>
-        <div>orderHistory[id]</div>
-      </aside>
-    <tr>
-      <td><%= id %></td>
-      <td><%= urls[id].longURL %></td>
-      <td>
-        <a href="<%= `/urls/${id}` %>" class="btn btn-outline-primary">Edit</a>
-      </td>
-      <td>
-        <form action="<%= `/urls/${id}/delete` %>" method="post">
-          <button class="btn btn-outline-danger" type="submit">Delete</button>
-        </form>
-      </td>
-    </tr>
+      <aside class="container-order">
+        <% for (let order of orderHistory) { %>
+          <a href="#">
+            <div class="order-history-container">
+              <div class="strong restaurant-text"><%= order["restaurant"] %></div>
+              <div class="order-history">
+                <img class="order-history-img" src="<%= order["thumbnail_photo_url"]
+                %>" alt="item thumbnail">
+              </div>
+              <div class="order-history-data">
+                <div class="strong order-history-date">
+                  <%= order["order_date"] %>
+                </div>
+              </div>
+            </div>
+          </a>
+          <% } %>
+        </aside>
+
+
+    <% } %>
+
+    <h1 class="heading-restaurants center-text">Try our business partner</h1>
+    <% for (let restaurant of restaurants) { %>
+      <section class="container-all-restaurants">
+        <a href="/api/users/restaurants/<%= restaurant["id"] %>">
+          <div class="restaurant-container">
+            <img class="order-history-img" src="<%= restaurant["logo_url"] %>"
+            alt="resturant logo">
+            <div class="restaurant-details-text">
+              <p><%= restaurant["name"] %></p>
+              <p><%= restaurant["city"] %></p>
+              <p>
+                <span class=".margin-right-sm"> <%= restaurant["street_number"] %></span> <%= restaurant["street"] %>
+              </p>
+              <p class="opening-hours">
+                <h4>Opening Hours:</h4>
+                <span class="hours-margin-right"><%= restaurant["opentime"] %></span>   <span class="hours-margin-right">to </span>  <%= restaurant["closetime"] %>
+              </p>
+            </div>
+          </div>
+        </a>
+
+      </section>
     <% } %>
   </body>
 </html>

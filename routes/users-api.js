@@ -11,7 +11,8 @@ const userQueries = require("../db/queries/users");
 
 // homepage
 router.get("/:id", (req, res) => {
-  // do a query to SELECT name, last 3 orders,
+  // do a query to SELECT last 3 orders,
+  // do a query to SELECT name
   // do another query  to Read all restaurants
   // let restaturant;
   // let orderHistory;
@@ -35,29 +36,56 @@ router.get("/:id", (req, res) => {
 
   res.render("homepage", {
     user: { name: "Antonio", admin: false },
-    restaurant: {
-      name: "KFC",
-      city: "Waterloo",
-      street: "Kfc Avenue",
-      street_number: "123",
-      phone_number: "555-555-5555",
-      logo_url:
-        "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
-      thumbnail_url:
-        "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/family_bucket_feast.jpg?v=12.7",
-      opentime: "9:00am",
-      closetime: "11:00pm",
-    },
-    orderHistory: {
-      name: "KFC",
-      order_number: "12",
-      order_date: "2023-08-10",
-      mainPic:
-        "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/famous_chicken_chicken_sandwich_combo.jpg?v=12.7",
-      starterPic:
-        "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/zinger_twister_sandwich.jpg?v=12.7",
-    },
+    restaurants: [
+      {
+        id: 1,
+        name: "KFC",
+        city: "Waterloo",
+        street: "Kfc Avenue",
+        street_number: "123",
+        phone_number: "555-555-5555",
+        logo_url:
+          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
+        thumbnail_url:
+          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/family_bucket_feast.jpg?v=12.7",
+        opentime: "9:00am",
+        closetime: "11:00pm",
+      },
+    ],
+    orderHistory: [
+      {
+        restaurant: "Kentucky",
+        order_number: "12",
+        order_date: "2023-08-10",
+        logo_url:
+          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
+        thumbnail_photo_url:
+          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/famous_chicken_chicken_sandwich_combo.jpg?v=12.7",
+      },
+      {
+        restaurant: "KFC",
+        order_number: "12",
+        order_date: "2023-08-10",
+        logo_url:
+          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
+        thumbnail_photo_url:
+          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/famous_chicken_chicken_sandwich_combo.jpg?v=12.7",
+      },
+      {
+        restaurant: "KFC",
+        order_number: "12",
+        order_date: "2023-08-10",
+        logo_url:
+          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
+        thumbnail_photo_url:
+          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/famous_chicken_chicken_sandwich_combo.jpg?v=12.7",
+      },
+    ],
   });
+});
+
+router.get("/restaurants/:id", (req, res) => {
+  res.render("users.ejs");
 });
 
 // router.get("/", (req, res) => {
