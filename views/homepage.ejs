@@ -46,7 +46,7 @@
               </div>
               <div class="order-history-data">
                 <div class="strong order-history-date">
-                  <%= order["order_date"] %>
+                  <%= order["order_date"].toLocaleDateString('en-US') %>
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@
       <section class="container-all-restaurants">
         <a href="/api/users/restaurants/<%= restaurant["id"] %>">
           <div class="restaurant-container">
-            <img class="order-history-img" src="<%= restaurant["logo_url"] %>"
+            <img class="resturant-img" src="<%= restaurant["logo_url"] %>"
             alt="resturant logo">
             <div class="restaurant-details-text">
               <p><%= restaurant["name"] %></p>
@@ -72,7 +72,7 @@
               </p>
               <p class="opening-hours">
                 <h4>Opening Hours:</h4>
-                <span class="hours-margin-right"><%= restaurant["opentime"] %></span>   <span class="hours-margin-right">to </span>  <%= restaurant["closetime"] %>
+                <span class="hours-margin-right"><%= restaurant["open_time"] %></span>   <span class="hours-margin-right">to </span>  <%= restaurant["close_time"] %>
               </p>
             </div>
           </div>

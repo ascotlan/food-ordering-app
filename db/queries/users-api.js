@@ -10,7 +10,7 @@ FROM orders
 JOIN restaurants ON restaurants.id = orders.restaurant_id
 JOIN order_items ON order_items.order_id = orders.id
 JOIN menu_items ON menu_items.id = order_items.menu_items_id
-WHERE orders.user_id = $1
+WHERE orders.user_id = $1 AND orders.completed = 'true'
   AND menu_items.price = (
     SELECT MAX(price)
     FROM order_items
@@ -31,9 +31,9 @@ LIMIT 3;`, [id])
 
 const getRestaurants = () => {
   return db.query(`SELECT * FROM restaurants;`)
-  .then(data => {
-    return data.rows;
-  });
+    .then(data => {
+      return data.rows;
+    });
 };
 
-module.exports = { getUserOrders };
+module.exports = { getUserOrders, getRestaurants };

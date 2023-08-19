@@ -8,95 +8,47 @@
 const express = require("express");
 const router = express.Router();
 const userQueries = require("../db/queries/users");
+const userApiQueries = require("../db/queries/users-api");
 
 // homepage
-router.get("/:id", (req, res) => {
-  // do a query to SELECT last 3 orders,
-  // do a query to SELECT name
-  // do another query  to Read all restaurants
-  // let restaturant;
-  // let orderHistory;
-  // userQueries
-  //     .getRestaurants()
-  //     .then((data) => {
-  //        restaurant = data;
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
+router.get("/:id", async(req, res) => {
+  // do a query to SELECT name based on id
+  let user = [];
+  try {
+    user = user.concat(await userQueries.getUsers(req.params.id));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 
-  // userQueries
-  //     .getOrderHistory()
-  //     .then((data) => {
-  //        orderHistory = data;
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
+  // do another query  to Read all restaurants
+  let restaurants = [];
+  try {
+    restaurants = restaurants.concat(
+      await userApiQueries.getRestaurants(req.params.id)
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  // do a query to SELECT last 3 completed orders
+  let orderHistory = [];
+  try {
+    orderHistory = orderHistory.concat(
+      await userApiQueries.getUserOrders(req.params.id)
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 
   res.render("homepage", {
-    user: { name: "Antonio", admin: false },
-    restaurants: [
-      {
-        id: 1,
-        name: "KFC",
-        city: "Waterloo",
-        street: "Kfc Avenue",
-        street_number: "123",
-        phone_number: "555-555-5555",
-        logo_url:
-          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
-        thumbnail_url:
-          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/family_bucket_feast.jpg?v=12.7",
-        opentime: "9:00am",
-        closetime: "11:00pm",
-      },
-    ],
-    orderHistory: [
-      {
-        restaurant: "Kentucky",
-        order_number: "12",
-        order_date: "2023-08-10",
-        logo_url:
-          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
-        thumbnail_photo_url:
-          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/famous_chicken_chicken_sandwich_combo.jpg?v=12.7",
-      },
-      {
-        restaurant: "KFC",
-        order_number: "12",
-        order_date: "2023-08-10",
-        logo_url:
-          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
-        thumbnail_photo_url:
-          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/famous_chicken_chicken_sandwich_combo.jpg?v=12.7",
-      },
-      {
-        restaurant: "KFC",
-        order_number: "12",
-        order_date: "2023-08-10",
-        logo_url:
-          "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1024px-KFC_logo-image.svg.png",
-        thumbnail_photo_url:
-          "https://www.kfc.ca/Content/OnlineOrderingImages/Menu/Items/lg2x/famous_chicken_chicken_sandwich_combo.jpg?v=12.7",
-      },
-    ],
+    user: user[0],
+    restaurants,
+    orderHistory,
   });
 });
 
 router.get("/restaurants/:id", (req, res) => {
   res.render("users.ejs");
 });
-
-// router.get("/", (req, res) => {
-//   userQueries
-//     .getUsers()
-//     .then((users) => {
-//       res.json({ users });
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ error: err.message });
-//     });
-// });
 
 module.exports = router;

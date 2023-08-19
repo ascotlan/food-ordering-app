@@ -10,32 +10,22 @@ const router = express.Router();
 const userQueries = require("../db/queries/users");
 
 // login
-router.get("/login/:id", (req, res) => {
+router.get("/login/:id", async(req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.id;
 
-  let user;
+  let userType = [];
   // query user table for user type
-  // userQueries
-  //   .getUser(req.params.id)
-  //   .then((data) => {
-  //     user = data;
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json({ error: err.message });
-  //   });
-
-  const queryResult = { user: { restaurant_id: 1, restaturant_admin: false } };
-
-  // mock result
-  if (req.params.id === "3") {
-    queryResult.user.restaturant_admin = true;
+  try {
+    userType = userType.concat(await userQueries.getUserType(req.params.id));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 
   //determine user type
-  if (queryResult.user.restaturant_admin) {
+  if (userType[0].restaurant_admin) {
     res.redirect(
-      `/api/widgets/orders/${queryResult.user.restaurant_id}/restaurants`
+      `/api/widgets/orders/${userType[0].restaurant_id}/restaurants`
     );
   } else {
     // send the user somewhere
