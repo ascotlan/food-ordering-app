@@ -9,9 +9,14 @@ const express = require("express");
 const router = express.Router();
 const userQueries = require("../db/queries/users");
 const userApiQueries = require("../db/queries/users-api");
+const noCache = require("../middleware/noCache");
 
-// homepage
-router.get("/:id", async(req, res) => {
+// homepage route handler
+router.get("/:id", noCache, async (req, res) => {
+  //check for auth cookie
+  if (!req.session.user_id) {
+    return res.redirect("/");
+  }
   // do a query to SELECT name based on id
   let user = [];
   try {
@@ -47,8 +52,39 @@ router.get("/:id", async(req, res) => {
   });
 });
 
-router.get("/restaurants/:id", (req, res) => {
-  res.render("users.ejs");
+// Menu page route handler
+router.get("/restaurants/:id", noCache, async (req, res) => {
+  //check for auth cookie
+  if (!req.session.user_id) {
+    return res.redirect("/");
+  }
+
+  // do a query to get all menu items for a restaurant
+  let items = [];
+  try {
+    items = items.concat(await userApiQueries.getAllMenuItems(req.params.id));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  // do a query to SELECT name based on id
+  let user = [];
+  try {
+    user = user.concat(await userQueries.getUsers(req.params.id));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  res.render("menu-page.ejs", {
+    user: user[0],
+    items,
+    cart: req.session.cart,
+    restaurant_id: req.params.id,
+  });
 });
 
 module.exports = router;

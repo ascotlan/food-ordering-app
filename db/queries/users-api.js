@@ -36,4 +36,14 @@ const getRestaurants = () => {
     });
 };
 
-module.exports = { getUserOrders, getRestaurants };
+const getAllMenuItems = (restaurantId) => {
+  return db.query (
+    `SELECT menu_items.*, menu_categories.name as menu_category_name
+    FROM menu_items
+    JOIN menu_categories ON menu_items.menu_category_id = menu_categories.id
+    WHERE menu_items.restaurant_id = $1;`,
+    [restaurantId])
+  .then (data => data.rows);
+  }
+
+module.exports = { getUserOrders, getRestaurants, getAllMenuItems };

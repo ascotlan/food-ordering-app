@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>OmniEats &mdash; Menu</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="OmniEats has proudly partnered with an extensive network of over hundreds of renowned and handpicked healthy food restaurants across Canada. Our collaboration with these culinary gems ensures that you have access to a diverse range of flavorful, nutritious, and thoughtfully prepared dishes, all available at your fingertips."
+    />
+
+    <link rel="icon" href="/img/favicon.png" />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+  <body>
+    <%- include('partials/_header') %>
+    <main id="menu-container">
+      <div class="menu-grid">
+        <section class="menu-category">
+          <h1 class="menu-category-name heading-tertiary">Appitizers</h1>
+          <% for(let item of items) { %> <% if(item.menu_category_id === 1){ %>
+          <div title="<%= item.description %>" class="menu-category-item">
+            <img
+              class="item-img"
+              src="<%= item.thumbnail_photo_url %>"
+              alt="<%= item.description %>"
+            />
+            <p class="item-name strong"><%= item.name %></p>
+            <p class="item-price">$<%= item.price / 100 %></p>
+
+            <form action="/api/widgets/order_items" method="POST">
+              <input type="hidden" name="item_id" value="<%= item.id%>" />
+              <input type="hidden" name="item_name" value="<%= item.name%>" />
+              <input type="hidden" name="item_price" value="<%= item.price%>" />
+              <input
+                type="hidden"
+                name="restaurant_id"
+                value="<%= restaurant_id%>"
+              />
+              <input type="submit" class="btn btn--form" value="Add to Cart" />
+            </form>
+          </div>
+
+          <%} %> <% } %>
+        </section>
+        <section class="menu-category">
+          <h1 class="menu-category-name heading-tertiary">Main Dishes</h1>
+          <% for(let item of items) { %> <% if(item.menu_category_id === 2){ %>
+          <div title="<%= item.description %>" class="menu-category-item">
+            <img
+              class="item-img"
+              src="<%= item.thumbnail_photo_url %>"
+              alt="<%= item.description %>"
+            />
+            <p class="item-name strong"><%= item.name %></p>
+            <p class="item-price">$<%= item.price / 100 %></p>
+
+            <form action="/api/widgets/order_items" method="POST">
+              <input type="hidden" name="item_id" value="<%= item.id%>" />
+              <input type="hidden" name="item_name" value="<%= item.name%>" />
+              <input type="hidden" name="item_price" value="<%= item.price%>" />
+              <input
+                type="hidden"
+                name="restaurant_id"
+                value="<%= restaurant_id%>"
+              />
+              <input type="submit" class="btn btn--form" value="Add to Cart" />
+            </form>
+          </div>
+          <% } %> <% } %>
+        </section>
+        <section class="menu-category">
+          <h1 class="menu-category-name heading-tertiary">Beverages</h1>
+          <% for(let item of items) { %> <% if(item.menu_category_id === 3){ %>
+          <div title="<%= item.description %>" class="menu-category-item">
+            <img
+              class="item-img"
+              src="<%= item.thumbnail_photo_url %>"
+              alt="<%= item.description %>"
+            />
+            <p class="item-name strong"><%= item.name %></p>
+            <p class="item-price">$<%= item.price / 100 %></p>
+
+            <form action="/api/widgets/order_items" method="POST">
+              <input type="hidden" name="item_id" value="<%= item.id%>" />
+              <input type="hidden" name="item_name" value="<%= item.name%>" />
+              <input type="hidden" name="item_price" value="<%= item.price%>" />
+              <input
+                type="hidden"
+                name="restaurant_id"
+                value="<%= restaurant_id%>"
+              />
+              <input type="submit" class="btn btn--form" value="Add to Cart" />
+            </form>
+          </div>
+          <%} %> <% } %>
+        </section>
+      </div>
+      <article class="cart">
+        <h1 class="heading-tertiary">Cart</h1>
+        <div class="cart-grid">
+          <div class="strong">Item</div>
+          <div class="strong">Quantity</div>
+          <div class="strong">Price</div>
+          <div class="strong">Total</div>
+          <div class="strong">Remove</div>
+          <% if(cart.length > 0){ %> <%let total = 0;%> <%for(let item of cart){
+          %>
+          <div class="cart-items"><%= item.name %></div>
+          <div class="cart-items"><%= item.quantity %></div>
+          <div class="cart-items">$<%= item.price/100 %></div>
+          <div class="cart-items">
+            $<%= parseFloat(item.quantity) * parseFloat(item.price/100) %>
+          </div>
+          <button
+            type="button"
+            class="remove-item btn btn--outline"
+            onclick='removeItem("<%= item.id %>", "<%=restaurant_id %>")'
+          >
+            Remove
+          </button>
+          <% total += parseFloat(item.quantity) * parseFloat(item.price/100); %>
+          <%}%>
+          <!-- <p class="strong cart-subtotal">Subtotal</p>
+          <div class="strong cart-subtotal">$<%= total %></div> -->
+          <a href="/api/widgets/orders" class="checkout-btn btn btn--full"
+            ><span class="margin-right-sm strong">Checkout</span> <span class="cart-subtotal">Subtotal: $<%= total %></span></a
+          >
+        </div>
+        <%} else { %>
+        <h3 class="cart-empty center-text strong">No Food Items in Cart</h3>
+        <% } %>
+      </article>
+    </main>
+  </body>
+</html>

@@ -2,7 +2,7 @@ const db = require("../connection");
 
 const getUsers = (id) => {
   return db
-    .query(`SELECT name FROM users WHERE users.id = $1;`, [id])
+    .query(`SELECT name, id FROM users WHERE users.id = $1;`, [id])
     .then((data) => {
       return data.rows;
     });

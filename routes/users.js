@@ -10,7 +10,7 @@ const router = express.Router();
 const userQueries = require("../db/queries/users");
 
 // login
-router.get("/login/:id", async(req, res) => {
+router.get("/login/:id", async (req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.id;
 
@@ -36,7 +36,7 @@ router.get("/login/:id", async(req, res) => {
 // logout
 router.post("/logout", (req, res) => {
   // using encrypted cookies
-  req.session.user_id = null;
+  req.session = null;
   res.redirect("/");
 });
 
