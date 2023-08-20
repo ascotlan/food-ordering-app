@@ -480,6 +480,10 @@ figure.gallery-item img:hover {
   font-size: 2rem;
   line-height: 1.5;
   padding: 3.2rem;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
 }
 
 .opening-hours {
@@ -561,18 +565,19 @@ article.cart {
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.08);
   border-radius: 11px;
   padding: 2.4rem;
+  min-height: 30%;
 
   display: flex;
   flex-direction: column;
 }
 .cart-grid {
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 4fr 0.5fr 0.5fr 0.5fr 0.5fr;
   row-gap: 2.4rem;
-  column-gap: 3.2rem;
+  column-gap: 2.4rem;
   justify-items: center;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .cart-empty {
@@ -581,8 +586,12 @@ article.cart {
   grid-column: 1/-1;
 }
 
+.cart-grid .cart-items {
+  font-size: 1.2rem;
+}
+
 article button.remove-item,
-.cart-items {
+.first-col.cart-items {
   font-size: 1.2rem;
   justify-self: start;
 }
@@ -600,11 +609,73 @@ div.cart-subtotal {
   grid-column: 4;
 }
 
-.cart a.checkout-btn {
+.cart a.confirm-btn {
   grid-column: 1/-1;
+  width: 100%;
+}
 
+.cart a.confirm-btn,
+.confirmation-container button.confirm-btn {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 8rem;
   align-items: center;
+}
+
+/******************************/
+/* ORDER CONFIRMATION PAGE    */
+/******************************/
+
+.confirmation-container {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+  max-width: 60rem;
+  justify-items: center;
+  align-items: start;
+  margin: 9.6rem auto;
+  row-gap: 3.2rem;
+
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.08);
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+.confirmation-container .resturant-img {
+  object-fit: cover;
+  width: 100%;
+  height: 18rem;
+  overflow: hidden;
+}
+
+.location-icon,
+.time-icon {
+  color: #e67e22;
+}
+
+.eta-pretext {
+  font-size: 1.6rem;
+}
+
+.confirmation-container .restaurant-details-text,
+.confirmation-container .order-details {
+  padding: 1.6rem;
+}
+
+.confirmation-container .first-col.cart-items {
+  padding: 0 1.2rem;
+}
+
+.order-details {
+  grid-column: 3/-1;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+.confirmation-container form {
+  grid-column: 1/-1;
+  margin-bottom: 2.4rem;
+}
+
+.confirmation-container .cart-items {
+  font-size: 1.6rem;
 }

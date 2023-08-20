@@ -12,7 +12,7 @@ const userApiQueries = require("../db/queries/users-api");
 const noCache = require("../middleware/noCache");
 
 // homepage route handler
-router.get("/:id", noCache, async (req, res) => {
+router.get("/:id",noCache, async (req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");

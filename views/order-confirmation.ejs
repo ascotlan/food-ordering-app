@@ -22,10 +22,67 @@
       href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
   </head>
-<body>
-  <%- include('partials/_header') %>
+  <body>
+    <%- include('partials/_header') %>
+    <section class="container">
+      <h1 class="heading-secondary center-text">Order Confirmation</h1>
+      <article class="confirmation-container">
+        <img class="resturant-img" src="<%= restaurant["logo_url"] %>"
+        alt="resturant logo">
+        <div class="restaurant-details-text">
+          <p class="strong">
+            <ion-icon class="location-icon" name="location-outline"></ion-icon>
+            Pick up at:
+          </p>
+          <p class="eta-pretext"><%= restaurant["name"] %></p>
+          <p class="eta-pretext"><%= restaurant["city"] %></p>
+          <p class="eta-pretext">
+            <span class=".margin-right-sm">
+              <%= restaurant["street_number"] %></span
+            >
+            <%= restaurant["street"] %>
+          </p>
+        </div>
+        <div class="order-details">
 
-  display order in the req.session.cart array
-</body>
+          <p class="strong"><ion-icon class="time-icon" name="time-outline"></ion-icon> Ready in:</p>
+          <p class="eta-pretext">ETA provided after order is confirmed</p>
+        </div>
+        <div class="strong cart-items">Item</div>
+        <div class="strong cart-items">Quantity</div>
+        <div class="strong cart-items">Price</div>
+        <div class="strong cart-items">Total</div>
+        <%let total = 0;%> <% for(let item of cart){ %>
+        <div class="first-col cart-items"><%= item.name %></div>
+        <div class="cart-items"><%= item.quantity %></div>
+        <div class="cart-items">$<%= item.price/100 %></div>
+        <div class="cart-items">
+          $<%= parseFloat(item.quantity) * parseFloat(item.price/100) %>
+        </div>
+        <% total += parseFloat(item.quantity) * parseFloat(item.price/100); %>
+        <%}%>
+
+        <form  action="/api/widgets/orders" method="POST">
+          <input
+            type="hidden"
+            name="restaurant_id"
+            value="<%= restaurant.id%>"
+          />
+          <button type="submit" class="confirm-btn btn btn--form">
+            <span class="margin-right-sm strong">Confirm Order:</span>
+            <span class="cart-subtotal">Subtotal: $<%= total %></span>
+          </button>
+        </form>
+      </article>
+    </section>
+  </body>
 </html>

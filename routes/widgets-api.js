@@ -10,6 +10,7 @@ const router = express.Router();
 const db = require("../db/connection");
 const noCache = require("../middleware/noCache");
 const userQueries = require("../db/queries/users");
+const userApiQueries = require("../db/queries/users-api");
 
 // checkout cart handler
 router.post("/order_items", (req, res) => {
@@ -52,6 +53,19 @@ router.get("/orders", noCache, async (req, res) => {
     return res.redirect("/");
   }
 
+  //query restarurants table by id
+  const restaurant_id = req.query.id;
+  let restaurant = [];
+
+  try {
+    restaurant = restaurant.concat(
+      await userApiQueries.getRestaurantInfo(restaurant_id)
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  // query user table for user type
   let user = [];
   try {
     user = user.concat(await userQueries.getUsers(req.session.user_id));
@@ -61,7 +75,25 @@ router.get("/orders", noCache, async (req, res) => {
 
   res.render("order-confirmation", {
     user: user[0],
+    cart: req.session.cart,
+    restaurant: restaurant[0],
   });
+});
+
+// Add new confirmed order to database
+router.post("/orders", (req, res) => {
+  //check for auth cookie
+  if (!req.session.user_id) {
+    return res.redirect("/");
+  }
+  // save order
+  // redirect to confirmation page with modal based on order.id
+  // modal text: A SMS text will be sent once ETA is avaialble and it will also be display here
+  // loading effect and display eta when ready
+  // listen for eta update
+  // closing modal redirect to homepage
+
+  res.render("users");
 });
 
 // Route handler to remove item from cart

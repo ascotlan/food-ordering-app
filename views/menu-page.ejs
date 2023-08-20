@@ -27,7 +27,7 @@
   <body>
     <%- include('partials/_header') %>
     <main id="menu-container">
-      <div class="menu-grid">
+      <article class="menu-grid">
         <section class="menu-category">
           <h1 class="menu-category-name heading-tertiary">Appitizers</h1>
           <% for(let item of items) { %> <% if(item.menu_category_id === 1){ %>
@@ -107,7 +107,7 @@
           </div>
           <%} %> <% } %>
         </section>
-      </div>
+      </article>
       <article class="cart">
         <h1 class="heading-tertiary">Cart</h1>
         <div class="cart-grid">
@@ -118,7 +118,7 @@
           <div class="strong">Remove</div>
           <% if(cart.length > 0){ %> <%let total = 0;%> <%for(let item of cart){
           %>
-          <div class="cart-items"><%= item.name %></div>
+          <div class="first-col cart-items"><%= item.name %></div>
           <div class="cart-items"><%= item.quantity %></div>
           <div class="cart-items">$<%= item.price/100 %></div>
           <div class="cart-items">
@@ -135,8 +135,11 @@
           <%}%>
           <!-- <p class="strong cart-subtotal">Subtotal</p>
           <div class="strong cart-subtotal">$<%= total %></div> -->
-          <a href="/api/widgets/orders" class="checkout-btn btn btn--full"
-            ><span class="margin-right-sm strong">Checkout</span> <span class="cart-subtotal">Subtotal: $<%= total %></span></a
+          <a
+            href="/api/widgets/orders?id=<%=restaurant_id %>"
+            class="confirm-btn btn btn--full"
+            ><span class="margin-right-sm strong">Checkout:</span>
+            <span class="cart-subtotal">Subtotal: $<%= total %></span></a
           >
         </div>
         <%} else { %>
