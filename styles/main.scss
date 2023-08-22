@@ -380,27 +380,54 @@ figure.gallery-item img:hover {
 /* HOME PAGE VIEW */
 /******************************/
 
+.order-history-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  margin: 4.8rem 0;
+}
+
+.refresh-icon {
+  color: #e67e22;
+  height: 2.4rem;
+  width: 2.4rem;
+  // margin-bottom: 3.2rem;
+  background-color: #fdf2e9;
+  padding: 1.6rem;
+  border-radius: 50%;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+a.refresh-icon {
+  text-decoration: none;
+}
+
+.refresh-icon:hover {
+  background-color: #fae5d3;
+}
+
 .container-order {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 50rem;
+  display: flex;
+  justify-content: center;
+  gap: 3.2rem;
+  max-width: 120rem;
   margin: 0 auto;
   padding: 0 3.2rem;
   row-gap: 3.2rem;
 }
 
 .history-text {
-  grid-column: 1/-1;
   font-size: 3.2rem;
   line-height: 1.15;
-  padding: 3.2rem 0 0;
+  font-weight: 700;
 }
 .order-history-container {
   display: grid;
   grid-template-columns: 1fr;
   max-width: 12rem;
-  margin: 0 auto;
-  justify-items: center;
 
   cursor: pointer;
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.08);
@@ -422,7 +449,14 @@ figure.gallery-item img:hover {
 
 .order-history-data {
   font-size: 1.2rem;
-  padding: 0.8rem 0;
+  padding: 0.8rem;
+}
+
+.order-history-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .order-history .order-history-img {
@@ -472,8 +506,9 @@ figure.gallery-item img:hover {
 }
 
 .restaurant-container:hover {
-  transform: translateY(-1.2rem);
+  transform: translateY(-1rem);
   box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.07);
+  background-color: #fae5d3;
 }
 
 .restaurant-details-text {
@@ -498,11 +533,34 @@ a {
 /******************************/
 /* MENU PAGE ITEMS VIEW */
 /******************************/
+
+nav.back{
+margin-top: 3.2rem;
+}
+a.back-btn {
+  text-decoration: none;
+}
+a .back-btn-icon {
+  color: #e67e22;
+  height: 2.4rem;
+  width: 2.4rem;
+  background-color: #fdf2e9;
+  padding: 1.6rem;
+  margin:0 6.4rem ;
+  border-radius: 50%;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+a .back-btn-icon:hover {
+  background-color: #fae5d3;
+}
+
 #menu-container {
   display: grid;
   grid-template-columns: 2.5fr 1fr;
   column-gap: 4.8rem;
-  padding: 8rem 4.8rem;
+  padding: 4rem 4.8rem 8rem;
 }
 
 .menu-grid {
@@ -582,7 +640,7 @@ article.cart {
 
 .cart-empty {
   font-size: 2rem;
-  margin-top: 4.8rem;
+  margin: 4.8rem 0;
   grid-column: 1/-1;
 }
 
@@ -618,18 +676,19 @@ div.cart-subtotal {
 .confirmation-container button.confirm-btn {
   display: flex;
   justify-content: space-around;
-  gap: 8rem;
   align-items: center;
 }
-
+.cart a.confirm-btn {
+  gap: 8rem;
+}
 /******************************/
 /* ORDER CONFIRMATION PAGE    */
 /******************************/
 
 .confirmation-container {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr 1fr;
-  max-width: 60rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  max-width: 80rem;
   justify-items: center;
   align-items: start;
   margin: 9.6rem auto;
@@ -648,7 +707,8 @@ div.cart-subtotal {
 }
 
 .location-icon,
-.time-icon {
+.time-icon,
+.payment-icon {
   color: #e67e22;
 }
 
@@ -666,9 +726,12 @@ div.cart-subtotal {
 }
 
 .order-details {
-  grid-column: 3/-1;
   font-size: 2rem;
   line-height: 1.5;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
 }
 
 .confirmation-container form {
@@ -678,4 +741,8 @@ div.cart-subtotal {
 
 .confirmation-container .cart-items {
   font-size: 1.6rem;
+}
+
+.confirmation-container button.confirm-btn {
+  gap: 4.8rem;
 }

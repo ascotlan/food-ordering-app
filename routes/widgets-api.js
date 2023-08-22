@@ -11,6 +11,8 @@ const db = require("../db/connection");
 const noCache = require("../middleware/noCache");
 const userQueries = require("../db/queries/users");
 const userApiQueries = require("../db/queries/users-api");
+const widgetApiQueries = require("../db/queries/widgets-api");
+const { sendAdminNotification } = require("../sms/sms");
 
 // checkout cart handler
 router.post("/order_items", (req, res) => {
@@ -73,6 +75,11 @@ router.get("/orders", noCache, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 
+  // ensure cart is not undefined
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
   res.render("order-confirmation", {
     user: user[0],
     cart: req.session.cart,
@@ -81,19 +88,63 @@ router.get("/orders", noCache, async (req, res) => {
 });
 
 // Add new confirmed order to database
-router.post("/orders", (req, res) => {
+router.post("/orders", async (req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
   }
-  // save order
-  // redirect to confirmation page with modal based on order.id
-  // modal text: A SMS text will be sent once ETA is avaialble and it will also be display here
-  // loading effect and display eta when ready
-  // listen for eta update
-  // closing modal redirect to homepage
 
-  res.render("users");
+  // query the order table and insert the new order
+  let order = [];
+
+  try {
+    order = order.concat(
+      await widgetApiQueries.createOrder({
+        user_id: req.session.user_id,
+        restaurant_id: req.body.restaurant_id,
+      })
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  // query the order_items table and insert each order item
+  for (let item of req.session.cart) {
+    try {
+      await widgetApiQueries.addNewItems(order[0].id, item.id, item.quantity);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+
+  // query db for required contact infoto send the SMS text to the restaurant admin
+  let contact = [];
+
+  try {
+    contact = contact.concat(
+      await widgetApiQueries.newOrderContactInfo(
+        req.session.user_id,
+        req.body.restaurant_id,
+        order[0].id
+      )
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  //***send order summary sms text to restaurant admin***
+  // sendAdminNotification(req.session.cart, {
+  //   restaurantAdminPhone: contact[0].admin_phone_number,
+  //   orderNumber: order[0].id,
+  //   customerPhone: contact[0].phone_number,
+  //   customerName: contact[0].name,
+  // });
+
+  //empty cart
+  req.session.cart = [];
+
+  // redirect to confirmation page with modal based on order.id
+  res.redirect(`/api/users/${req.session.user_id}`);
 });
 
 // Route handler to remove item from cart
@@ -121,9 +172,11 @@ router.get("/orders/:id/restaurants", noCache, (req, res) => {
     return res.redirect("/");
   }
 
+  let user = [];
+
   // do a query to SELECT all open orders using id
 
-  const openOrders = { orders: "..." };
+  let openOrders = [];
 
   res.render("admin-portal.ejs", {
     user: { admin: true },

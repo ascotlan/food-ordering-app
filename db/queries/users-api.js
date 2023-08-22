@@ -7,12 +7,16 @@ const getUserOrders = (id) => {
   restaurants.name AS restaurant,
   orders.id AS order_number,
   orders.order_date,
+  orders.eta,
+  orders.completed,
+  orders.in_progress,
+  orders.pending,
   menu_items.thumbnail_photo_url
 FROM orders
 JOIN restaurants ON restaurants.id = orders.restaurant_id
 JOIN order_items ON order_items.order_id = orders.id
 JOIN menu_items ON menu_items.id = order_items.menu_items_id
-WHERE orders.user_id = $1 AND orders.completed = 'true'
+WHERE orders.user_id = $1
   AND menu_items.price = (
     SELECT MAX(price)
     FROM order_items
@@ -25,7 +29,7 @@ GROUP BY orders.id,
     orders.order_date,
     menu_items.thumbnail_photo_url
 ORDER BY orders.order_date DESC
-LIMIT 3;`,
+LIMIT 5;`,
       [id]
     )
     .then((data) => {

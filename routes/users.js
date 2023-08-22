@@ -13,7 +13,6 @@ const userQueries = require("../db/queries/users");
 router.get("/login/:id", async (req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.id;
-
   let userType = [];
   // query user table for user type
   try {

@@ -23,9 +23,22 @@
       rel="stylesheet"
     />
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
   </head>
   <body>
     <%- include('partials/_header') %>
+    <nav class="back">
+      <a href="/api/users/<%=user['id']%>" class="back-btn">
+        <ion-icon class="back-btn-icon" name="arrow-back-outline"></ion-icon>
+      </a>
+    </nav>
     <main id="menu-container">
       <article class="menu-grid">
         <section class="menu-category">
@@ -52,7 +65,6 @@
               <input type="submit" class="btn btn--form" value="Add to Cart" />
             </form>
           </div>
-
           <%} %> <% } %>
         </section>
         <section class="menu-category">
@@ -116,8 +128,7 @@
           <div class="strong">Price</div>
           <div class="strong">Total</div>
           <div class="strong">Remove</div>
-          <% if(cart.length > 0){ %> <%let total = 0;%> <%for(let item of cart){
-          %>
+          <% if(cart.length){ %> <%let total = 0;%> <%for(let item of cart){ %>
           <div class="first-col cart-items"><%= item.name %></div>
           <div class="cart-items"><%= item.quantity %></div>
           <div class="cart-items">$<%= item.price/100 %></div>
@@ -133,8 +144,6 @@
           </button>
           <% total += parseFloat(item.quantity) * parseFloat(item.price/100); %>
           <%}%>
-          <!-- <p class="strong cart-subtotal">Subtotal</p>
-          <div class="strong cart-subtotal">$<%= total %></div> -->
           <a
             href="/api/widgets/orders?id=<%=restaurant_id %>"
             class="confirm-btn btn btn--full"
