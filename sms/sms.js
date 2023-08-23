@@ -39,7 +39,7 @@ function sendAdminNotification(cart, contact) {
 function sendOrderEta(orderInfo) {
   client.messages
     .create({
-      body: `Thank you for using OmniEats. Your order from ${orderInfo.restaurant_name} will be ready for pick up in approximately ${orderInfo.eta} minutes.`,
+      body: `Thank you for using OmniEats. Your order from ${orderInfo.restaurant} will be ready for pick up in approximately ${orderInfo.eta} minutes.`,
       to: process.env.TWILIO_CUSTOMER, // User's phone number contact.customerPhone
       from: process.env.TWILIO_PHONE_NUMBER, // Your Twilio phone number
     })

@@ -534,8 +534,8 @@ a {
 /* MENU PAGE ITEMS VIEW */
 /******************************/
 
-nav.back{
-margin-top: 3.2rem;
+nav.back {
+  margin-top: 3.2rem;
 }
 a.back-btn {
   text-decoration: none;
@@ -546,7 +546,7 @@ a .back-btn-icon {
   width: 2.4rem;
   background-color: #fdf2e9;
   padding: 1.6rem;
-  margin:0 6.4rem ;
+  margin: 0 6.4rem;
   border-radius: 50%;
   transition: all 0.4s;
   cursor: pointer;
@@ -745,4 +745,98 @@ div.cart-subtotal {
 
 .confirmation-container button.confirm-btn {
   gap: 4.8rem;
+}
+
+/******************************/
+/* ORDER CONFIRMATION PAGE    */
+/******************************/
+
+.open-orders-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 3.2rem;
+  padding: 4.8rem 0;
+  justify-items: center;
+}
+
+.open-orders-heading {
+  font-size: 3.2rem;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.open-order {
+  justify-self: center;
+  max-width: 60%;
+
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  row-gap: 3.2rem;
+  align-items: center;
+  padding: 3.2rem;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.08);
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+.add-eta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: flex-start;
+  padding: 1.2rem;
+  border: 1px solid #45260a;
+  border-radius: 11px;
+}
+.eta-message {
+  font-size: 1.8rem;
+  color: red;
+  grid-column: 2/-1;
+  justify-self: center;
+}
+
+.add-eta label {
+  font-size: 1.6rem;
+}
+
+#order-eta {
+  width: 50%;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.4rem;
+}
+
+.open-order input[type="number"] {
+  border: 1px solid #45260a;
+  border-radius: 9px;
+}
+
+.eta-btn {
+  width: 100%;
+}
+
+.customer-info-list {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  gap: 0.8rem;
+}
+.customer-info-list,
+.submitted-order-list {
+  list-style-type: none;
+}
+
+.customer-info-list,
+.close-order {
+  grid-column: 1/-1;
+}
+
+.close-order-btn {
+  width: 100%;
+  color: red;
+}
+
+.submitted-order-list {
+  justify-self: center;
+  font-size: 1.6rem;
 }

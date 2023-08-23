@@ -12,7 +12,7 @@ const noCache = require("../middleware/noCache");
 const userQueries = require("../db/queries/users");
 const userApiQueries = require("../db/queries/users-api");
 const widgetApiQueries = require("../db/queries/widgets-api");
-const { sendAdminNotification } = require("../sms/sms");
+const { sendAdminNotification, sendOrderEta } = require("../sms/sms");
 
 // checkout cart handler
 router.post("/order_items", (req, res) => {
@@ -133,12 +133,12 @@ router.post("/orders", async (req, res) => {
   }
 
   //***send order summary sms text to restaurant admin***
-  // sendAdminNotification(req.session.cart, {
-  //   restaurantAdminPhone: contact[0].admin_phone_number,
-  //   orderNumber: order[0].id,
-  //   customerPhone: contact[0].phone_number,
-  //   customerName: contact[0].name,
-  // });
+  sendAdminNotification(req.session.cart, {
+    restaurantAdminPhone: contact[0].admin_phone_number,
+    orderNumber: order[0].id,
+    customerPhone: contact[0].phone_number,
+    customerName: contact[0].name,
+  });
 
   //empty cart
   req.session.cart = [];
@@ -148,14 +148,14 @@ router.post("/orders", async (req, res) => {
 });
 
 // Route handler to remove item from cart
-router.get("/order_items/:id/delete", (req, res) => {
+router.post("/order_items/:id/delete", (req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
   }
 
   const itemId = req.params.id;
-  const restaurantId = req.query.id;
+  const restaurantId = req.body.id;
 
   for (let i = 0; i < req.session.cart.length; i++) {
     if (req.session.cart[i].id === itemId) {
@@ -166,22 +166,99 @@ router.get("/order_items/:id/delete", (req, res) => {
 });
 
 //Admin portal page route handler
-router.get("/orders/:id/restaurants", noCache, (req, res) => {
+router.get("/orders/:id/restaurants", noCache, async (req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
   }
 
+  // do a query to SELECT name based on id
   let user = [];
+  try {
+    user = user.concat(await userQueries.getUsers(req.session.user_id));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 
   // do a query to SELECT all open orders using id
 
   let openOrders = [];
+  try {
+    openOrders = openOrders.concat(
+      await widgetApiQueries.getOpenOrdersByRestaurantAdminId(
+        req.session.user_id
+      )
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  // get all restaurant info by restaurant id
+  let restaurant = [];
+  try {
+    restaurant = restaurant.concat(
+      await userApiQueries.getRestaurantInfo(req.params.id)
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  let orderItems = [];
+  for (let order of openOrders) {
+    try {
+      orderItems = orderItems.concat(
+        await widgetApiQueries.getOrderItems(order.order_number)
+      );
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
 
   res.render("admin-portal.ejs", {
-    user: { admin: true },
+    user: user[0],
+    restaurant: restaurant[0],
     openOrders,
+    orderItems,
   });
+});
+
+// Complete the order by updating status to complete
+router.post("/orders/:id/order_status", async (req, res) => {
+  if (!req.session.user_id) {
+    return res.redirect("/");
+  }
+
+  try {
+    await widgetApiQueries.completeOrder(req.params.id);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  res.redirect(`/api/widgets/orders/${req.body.restaurant_id}/restaurants`);
+});
+
+// Update the order with an ETA
+router.post("/orders/:id/eta", async (req, res) => {
+  if (!req.session.user_id) {
+    return res.redirect("/");
+  }
+
+  let eta = [];
+  try {
+    eta = eta.concat(
+      await widgetApiQueries.updateOrderEta(req.params.id, req.body.eta)
+    );
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+
+  // Send SMS text to customer
+  sendOrderEta({
+    restaurant:req.body.restaurant_name,
+    eta: eta[0].eta
+  })
+
+  res.redirect(`/api/widgets/orders/${req.body.restaurant_id}/restaurants`);
 });
 
 module.exports = router;

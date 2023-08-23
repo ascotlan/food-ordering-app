@@ -22,7 +22,6 @@
       href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script type="text/javascript" src="/scripts/app.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -135,13 +134,23 @@
           <div class="cart-items">
             $<%= parseFloat(item.quantity) * parseFloat(item.price/100) %>
           </div>
-          <button
-            type="button"
-            class="remove-item btn btn--outline"
-            onclick='removeItem("<%= item.id %>", "<%=restaurant_id %>")'
+          <form
+            action="/api/widgets/order_items/<%=item.id%>/delete"
+            method="POST"
           >
-            Remove
-          </button>
+          <input
+          type="hidden"
+          name="id"
+          value="<%= restaurant_id%>"
+        />
+            <button
+              type="submit"
+              class="remove-item btn btn--outline"
+            >
+              Remove
+            </button>
+          </form>
+
           <% total += parseFloat(item.quantity) * parseFloat(item.price/100); %>
           <%}%>
           <a

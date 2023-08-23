@@ -1,5 +1,6 @@
 const db = require("../connection");
 
+//a user by id
 const getUsers = (id) => {
   return db
     .query(`SELECT name, id FROM users WHERE users.id = $1;`, [id])

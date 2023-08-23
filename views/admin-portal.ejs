@@ -32,6 +32,96 @@
     ></script>
   </head>
   <body>
-    <%- include('partials/_header') %>
+    <%- include('partials/_admin-header') %>
+    <main class="container">
+      <section class="open-orders-grid">
+        <h1 class="open-orders-heading">Open Order Queue</h1>
+        <a
+          title="Refresh"
+          href="/api/widgets/orders/<%=restaurant.id%>/restaurants"
+          ><ion-icon class="refresh-icon" name="refresh-outline"></ion-icon
+        ></a>
+        <%if(openOrders.length){ %> <% for(let order of openOrders){ %>
+        <article class="open-order">
+          <form
+            class="add-eta"
+            action="/api/widgets/orders/<%=order.order_number%>/eta"
+            method="POST"
+          >
+            <label for="order-eta">Update Order ETA</label>
+            <input
+              type="hidden"
+              name="restaurant_name"
+              value="<%= restaurant.name%>"
+            />
+            <input
+              type="hidden"
+              name="restaurant_id"
+              value="<%= restaurant.id%>"
+            />
+            <input
+              type="number"
+              name="eta"
+              placeholder="minutes"
+              id="order-eta"
+            />
+
+            <button type="submit" class="eta-btn btn btn--form">Add ETA</button>
+          </form>
+          <%if(order.eta !== null){%>
+          <p class="eta-message">
+            <span class="strong">ETA: </span><%=order.eta%> mins
+          </p>
+          <%} else{ %>
+          <p class="eta-message">Please enter an ETA for this order</p>
+          <%}%>
+          <ul class="customer-info-list">
+            <li>
+              <span class="strong">Order#: </span> <%=order.order_number%>
+            </li>
+            <li>
+              <span class="strong">Customer:</span> <%=order.customer_name%>
+            </li>
+            <li>
+              <span class="strong">Customer Phone:</span>
+              <%=order.customer_phone%>
+            </li>
+            <li>
+              <span class="strong">Order Date:</span>
+              <%=order.order_date.toLocaleDateString("en-US", {timeZone:
+              "America/New_York"}) %>
+            </li>
+          </ul>
+
+          <p class="submitted-order-list strong">Quantity</p>
+          <p class="submitted-order-list strong">Item Name</p>
+          <p class="submitted-order-list strong">Unit Price</p>
+          <%for(let items of orderItems){ %> <%if(order.order_number ===
+          items.id){%>
+          <p class="submitted-order-list"><%=items.quantity%></p>
+          <p class="submitted-order-list center-text"><%=items.name%></p>
+          <p class="submitted-order-list">$<%=items.price/100%></p>
+          <%}%> <%}%> <%if(order.eta !== null){%>
+          <form
+            class="close-order"
+            action="/api/widgets/orders/<%=order.order_number%>/order_status"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="restaurant_id"
+              value="<%= restaurant.id%>"
+            />
+            <button type="submit" class="close-order-btn btn btn--outline">
+              Complete Order
+            </button>
+          </form>
+          <%}%>
+        </article>
+        <%}%> <%} else{%>
+        <h3 class="cart-empty center-text strong">No Open Orders in Queue</h3>
+        <%}%>
+      </section>
+    </main>
   </body>
 </html>

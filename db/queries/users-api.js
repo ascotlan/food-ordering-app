@@ -1,5 +1,6 @@
 const db = require("../connection");
 
+// get order history for last 5 orders
 const getUserOrders = (id) => {
   return db
     .query(
@@ -37,14 +38,14 @@ LIMIT 5;`,
     });
 };
 
+//get all restaurants
 const getRestaurants = () => {
   return db.query(`SELECT * FROM restaurants;`).then((data) => {
     return data.rows;
   });
 };
 
-// it takes in restaurant id and retrieves restaurant logo and name.
-// let me know if I should modify it to get rest id from users table
+// it takes in restaurant id and retrieves a restaurant's info.
 const getRestaurantInfo = (id) => {
   return db
     .query(
@@ -58,6 +59,7 @@ WHERE id = $1;`,
     });
 };
 
+// Get all menu items for a particular restaurant
 const getAllMenuItems = (restaurantId) => {
   return db
     .query(

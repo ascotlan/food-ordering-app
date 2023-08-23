@@ -17,6 +17,7 @@ router.get("/:id", noCache, async (req, res) => {
   if (!req.session.user_id) {
     return res.redirect("/");
   }
+
   // do a query to SELECT name based on id
   let user = [];
   try {
@@ -29,7 +30,7 @@ router.get("/:id", noCache, async (req, res) => {
   let restaurants = [];
   try {
     restaurants = restaurants.concat(
-      await userApiQueries.getRestaurants(req.params.id)
+      await userApiQueries.getRestaurants()
     );
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -39,7 +40,7 @@ router.get("/:id", noCache, async (req, res) => {
   let orderHistory = [];
   try {
     orderHistory = orderHistory.concat(
-      await userApiQueries.getUserOrders(req.params.id)
+      await userApiQueries.getUserOrders(req.session.user_id)
     );
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -74,8 +75,6 @@ router.get("/restaurants/:id", noCache, async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-
-  console.log(user);
 
   //ensure cart is not undefined
   if (!req.session.cart) {

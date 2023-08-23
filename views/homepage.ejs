@@ -58,7 +58,7 @@
                 <%} else {%>
                   <p>Last ordered on</p>
                 <%}%>
-                <p><%= order["order_date"].toLocaleDateString('en-US') %></p>
+                <p><%= order["order_date"].toLocaleDateString("en-US", {timeZone: "America/New_York"}) %></p>
               </div>
             </div>
           </div>
