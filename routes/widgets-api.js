@@ -20,6 +20,7 @@ router.post("/order_items", (req, res) => {
   if (!req.session.user_id) {
     return res.redirect("/");
   }
+  
   const id = req.body.item_id;
   const name = req.body.item_name;
   const price = req.body.item_price;

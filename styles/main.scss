@@ -840,3 +840,48 @@ div.cart-subtotal {
   justify-self: center;
   font-size: 1.6rem;
 }
+
+/******************************/
+/* NAVIGATION BACK TO TOP*/
+/******************************/
+
+main .arrow-up {
+  color: #e67e22;
+  height: 2.4rem;
+  width: 2.4rem;
+  background-color: #fdf2e9;
+  padding: 1.6rem;
+  border-radius: 50%;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+main .arrow-up:hover {
+  background-color: #fae5d3;
+  transform: translateY(-0.4rem);
+}
+
+.top-page {
+  margin: 0 8rem 4.8rem 0;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transition: all 0.4s;
+}
+
+div.scroll a:link,
+div.scroll a:visited {
+  text-decoration: none;
+}
+
+div.scroll .top-page.show {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+div.scroll .top-page.hide {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}

@@ -41,7 +41,7 @@
     <main id="menu-container">
       <article class="menu-grid">
         <section class="menu-category">
-          <h1 class="menu-category-name heading-tertiary">Appitizers</h1>
+          <h1 class="menu-category-name heading-tertiary">Appetizers</h1>
           <% for(let item of items) { %> <% if(item.menu_category_id === 1){ %>
           <div title="<%= item.description %>" class="menu-category-item">
             <img
@@ -138,15 +138,8 @@
             action="/api/widgets/order_items/<%=item.id%>/delete"
             method="POST"
           >
-          <input
-          type="hidden"
-          name="id"
-          value="<%= restaurant_id%>"
-        />
-            <button
-              type="submit"
-              class="remove-item btn btn--outline"
-            >
+            <input type="hidden" name="id" value="<%= restaurant_id%>" />
+            <button type="submit" class="remove-item btn btn--outline">
               Remove
             </button>
           </form>
