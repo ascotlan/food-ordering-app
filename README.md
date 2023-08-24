@@ -21,6 +21,8 @@ The following steps are only for _one_ of the group members to perform.
 ![Restaurant admin page](https://github.com/ascotlan/food-ordering-app/assets/105958169/6125a08b-1a1f-44b5-9e05-0cbf7027ada5)
 ![order confirmation page](https://github.com/ascotlan/food-ordering-app/assets/105958169/d5fc1d3b-0cb1-48f0-b84a-6d44ec2aa7d6)
 ![checkout page](https://github.com/ascotlan/food-ordering-app/assets/105958169/69b89836-39ad-4768-bdd4-9ff5b19abe25)
+![Screenshot_2023-08-24-14-48-55-49 (2)](https://github.com/ascotlan/food-ordering-app/assets/105958169/0af9efb7-872d-4503-ae30-1de7607141ba)
+![Screenshot_2023-08-24-14-51-07-43](https://github.com/ascotlan/food-ordering-app/assets/105958169/35518969-4593-476d-ad83-254c4448eaa1)
 
 ## Getting Starting
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
