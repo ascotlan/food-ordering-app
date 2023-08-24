@@ -4,33 +4,25 @@ const db = require("../connection");
 const getUserOrders = (id) => {
   return db
     .query(
-      `SELECT restaurants.logo_url,
-  restaurants.name AS restaurant,
-  orders.id AS order_number,
-  orders.order_date,
-  orders.eta,
-  orders.completed,
-  orders.in_progress,
-  orders.pending,
-  menu_items.thumbnail_photo_url
-FROM orders
-JOIN restaurants ON restaurants.id = orders.restaurant_id
-JOIN order_items ON order_items.order_id = orders.id
-JOIN menu_items ON menu_items.id = order_items.menu_items_id
-WHERE orders.user_id = $1
-  AND menu_items.price = (
-    SELECT MAX(price)
-    FROM order_items
-    JOIN menu_items ON menu_items.id = order_items.menu_items_id
-    WHERE order_items.order_id = orders.id
-  )
-GROUP BY orders.id,
-    restaurants.logo_url,
-    restaurants.name,
-    orders.order_date,
-    menu_items.thumbnail_photo_url
-ORDER BY orders.order_date DESC
-LIMIT 5;`,
+      `SELECT DISTINCT ON (orders.id)
+          orders.id AS order_number,
+          menu_items.name AS item_name,
+          menu_items.price AS max_price,
+          orders.order_date,
+        orders.eta,
+        orders.completed,
+        orders.in_progress,
+        orders.pending,
+        menu_items.thumbnail_photo_url,
+        restaurants.logo_url,
+        restaurants.name AS restaurant
+      FROM orders
+      JOIN order_items ON order_items.order_id = orders.id
+      JOIN menu_items ON menu_items.id = order_items.menu_items_id
+      JOIN restaurants ON restaurants.id = orders.restaurant_id
+      WHERE orders.user_id = $1
+      ORDER BY orders.id DESC, orders.order_date DESC, max_price DESC
+      LIMIT 5;`,
       [id]
     )
     .then((data) => {
