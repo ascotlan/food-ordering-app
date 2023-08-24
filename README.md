@@ -11,6 +11,54 @@ The following steps are only for _one_ of the group members to perform.
 4. Add your team members as collaborators to the project so that they can push to this repo
 5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
 
+## Summary Of OmniEat Application
+
+Landing Page:
+
+Users can access the landing page.
+Information about how OmniEats acts as an intermediary for restaurants is displayed.
+
+User Login:
+Registered users can log in from the landing page.
+Personal profile (homepage) is accessible after login, showing past orders, user information, and restaurant info.
+
+Quick Reordering:
+Users can create a new order based on a previous order from their order history.
+This allows users to easily reorder the same items without having to select them individually again.
+
+Menu Selection:
+Users can view the menu items.
+Menu items can be selected in various quantities, each with its own price.
+
+Subtotal of quantities with cost is displayed.
+Users can remove items from their selections.
+
+Checkout and Order Submission:
+Users can proceed to checkout with their selections.
+Users can submit the order for pick-up.
+The order is pre-paid.
+
+Order Status Tracking:
+Users can track the status of their order on the OmniEats website after submission.
+The estimated wait time for order fulfillment is displayed.
+
+Restaurant Portal Login:
+Registered restaurant users can log in to their account.
+The restaurant user portal provides an overview of pending and in-progress orders, including order date and estimated time for order readiness.
+
+Order Notification for Restaurants:
+Restaurants receive SMS notifications from OmniEats when a new order is placed.
+This allows restaurants to update order statuses in their portal promptly.
+
+ETA Notifications for Users:
+Users receive SMS notifications from OmniEats providing the estimated time of order pickup.
+Notifications are sent even when users are logged out of their account.
+
+View Filled Orders (Stretch):
+Registered restaurant users can log in to view completed orders.
+Order history includes order date and timestamp
+
+
 ## Screenshot
 [Landing page](https://github.com/ascotlan/food-ordering-app/assets/105958169/faea7c50-559b-4bc7-a0d6-5c7bc8ae55f4)
 ![Testimonials ](https://github.com/ascotlan/food-ordering-app/assets/105958169/df2a848c-7ff4-4cef-9b85-50be8cb9a9af)
