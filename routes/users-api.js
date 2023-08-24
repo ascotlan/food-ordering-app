@@ -29,9 +29,7 @@ router.get("/:id", noCache, async (req, res) => {
   // do another query  to Read all restaurants
   let restaurants = [];
   try {
-    restaurants = restaurants.concat(
-      await userApiQueries.getRestaurants()
-    );
+    restaurants = restaurants.concat(await userApiQueries.getRestaurants());
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -45,7 +43,7 @@ router.get("/:id", noCache, async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-
+  console.log(orderHistory);
   res.render("homepage", {
     user: user[0],
     restaurants,
