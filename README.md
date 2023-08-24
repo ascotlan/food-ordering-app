@@ -1,65 +1,56 @@
-LHL Node Skeleton
-=========
+# OmniEats Application Project
 
-## Project Setup
+Welcome to the OmniEats Application Project! This collaborative effort brings together the skills and dedication of Antonio, Maria, Neriman, and Gift. OmniEats is more than just a food ordering platform – it's a transformative experience that redefines how you engage with restaurants. In this README, we'll walk you through the architecture, innovative features, thorough testing, captivating user stories, and much more that define the core of OmniEats.
 
-The following steps are only for _one_ of the group members to perform.
+## Project Structure
 
-1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project. The repo should be marked Public
-2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected
-3. Clone your copy of the repo to your dev machine
-4. Add your team members as collaborators to the project so that they can push to this repo
-5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
+Our project harmoniously combines frontend and backend excellence. The frontend showcases expertise in HTML, CSS, and jQuery, resulting in an intuitive and engaging user interface. The backend employs the power of Node.js and a robust PostgreSQL database for dynamic logic and seamless data management. The synchronization of these components reflects our unified vision and collaborative spirit.
 
 ## Summary Of OmniEat Application
 
-Landing Page:
+**Landing Page:**
+- Users can access the landing page.
+- Information about OmniEats' role as an intermediary for restaurants is displayed.
 
-Users can access the landing page.
-Information about how OmniEats acts as an intermediary for restaurants is displayed.
+**User Login:**
+- Registered users can log in from the landing page.
+- Personal profiles (homepages) are accessible post-login, showcasing past orders, user information, and restaurant details.
 
-User Login:
-Registered users can log in from the landing page.
-Personal profile (homepage) is accessible after login, showing past orders, user information, and restaurant info.
+**Quick Reordering:**
+- Users can swiftly create a new order based on their order history.
+- This streamlines the process of reordering previously selected items.
 
-Quick Reordering:
-Users can create a new order based on a previous order from their order history.
-This allows users to easily reorder the same items without having to select them individually again.
+**Menu Selection:**
+- Users can view the menu items.
+- Menu items can be selected in varying quantities, each with its respective price.
+- Subtotal of quantities with costs is displayed.
+- Users can easily remove items from their selections.
 
-Menu Selection:
-Users can view the menu items.
-Menu items can be selected in various quantities, each with its own price.
+**Checkout and Order Submission:**
+- Users can proceed to checkout with their selections.
+- Orders can be submitted for pick-up, and they are pre-paid.
 
-Subtotal of quantities with cost is displayed.
-Users can remove items from their selections.
+**Order Status Tracking:**
+- Users can track their order status on the OmniEats website post-submission.
+- Estimated wait times for order fulfillment are provided.
 
-Checkout and Order Submission:
-Users can proceed to checkout with their selections.
-Users can submit the order for pick-up.
-The order is pre-paid.
+**Restaurant Portal Login:**
+- Registered restaurant users can log in to their accounts.
+- The restaurant user portal offers an overview of pending and in-progress orders, including order dates and estimated readiness times.
 
-Order Status Tracking:
-Users can track the status of their order on the OmniEats website after submission.
-The estimated wait time for order fulfillment is displayed.
+**Order Notification for Restaurants:**
+- Restaurants receive SMS notifications from OmniEats upon new order placements.
+- This feature facilitates prompt updates of order statuses within the restaurant user portal.
 
-Restaurant Portal Login:
-Registered restaurant users can log in to their account.
-The restaurant user portal provides an overview of pending and in-progress orders, including order date and estimated time for order readiness.
+**ETA Notifications for Users:**
+- Users receive SMS notifications from OmniEats containing estimated order pickup times.
+- Notifications are delivered even when users are logged out of their accounts.
 
-Order Notification for Restaurants:
-Restaurants receive SMS notifications from OmniEats when a new order is placed.
-This allows restaurants to update order statuses in their portal promptly.
+**View Filled Orders (Stretch):**
+- Registered restaurant users can log in to view completed orders.
+- Order history includes order dates and timestamps.
 
-ETA Notifications for Users:
-Users receive SMS notifications from OmniEats providing the estimated time of order pickup.
-Notifications are sent even when users are logged out of their account.
-
-View Filled Orders (Stretch):
-Registered restaurant users can log in to view completed orders.
-Order history includes order date and timestamp
-
-
-## Screenshot
+## Screenshots
 [Landing page](https://github.com/ascotlan/food-ordering-app/assets/105958169/faea7c50-559b-4bc7-a0d6-5c7bc8ae55f4)
 ![Testimonials ](https://github.com/ascotlan/food-ordering-app/assets/105958169/df2a848c-7ff4-4cef-9b85-50be8cb9a9af)
 ![Meal page](https://github.com/ascotlan/food-ordering-app/assets/105958169/18db78d4-c9d9-4c7b-b9f6-a39202c4a9dc)
@@ -73,32 +64,40 @@ Order history includes order date and timestamp
 ![Sms sent to customer](https://github.com/ascotlan/food-ordering-app/assets/105958169/9a75535b-706a-4630-b58f-b0b34ffd132c)
 
 
-## Getting Starting
-1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
-2. Update the .env file with your correct local information 
-  - username: `labber` 
-  - password: `labber` 
-  - database: `midterm`
-3. Install dependencies: `npm i`
-4. Fix to binaries for sass: `npm rebuild node-sass`
-5. Reset database: `npm run db:reset`
-  - Check the db folder to see what gets created and seeded in the SDB
-7. Run the server: `npm run local`
-  - Note: nodemon is used, so you should not have to restart your server
-8. Visit `http://localhost:8080/`
+## Getting Started
+
+1. Create the `.env` file using `.env.example` as a reference: `cp .env.example .env`
+2. Update the `.env` file with your local database information:
+   - username: `labber`
+   - password: `labber`
+   - database: `midterm`
+3. Install dependencies: `npm install`
+4. Rebuild binaries for Sass: `npm rebuild node-sass`
+5. Reset the database: `npm run db:reset` (Note: This will reset data)
+6. Run the server: `npm run local`
+   - Nodemon is used, so restarting the server is usually unnecessary
+7. Visit `http://localhost:8080/`
 
 ## Warnings & Tips
 
-- Do not edit the `layout.css` file directly, it is auto-generated by `layout.scss`.
-- Split routes into their own resource-based file names, as demonstrated with `users.js` and `widgets.js`.
-- Split database schema (table definitions) and seeds (inserts) into separate files, one per table. See `db` folder for pre-populated examples. 
-- Use helper functions to run your SQL queries and clean up any data coming back from the database. See `db/queries` for pre-populated examples.
-- Use the `npm run db:reset` command each time there is a change to the database schema or seeds. 
-  - It runs through each of the files, in order, and executes them against the database. 
-  - Note: you will lose all newly created (test) data each time this is run, since the schema files will tend to `DROP` the tables and recreate them.
+- Avoid direct edits to `layout.css` since it's auto-generated from `layout.scss`.
+- Organize routes into separate resource-based files (e.g., `users.js` and `widgets.js`).
+- Split database schema (table definitions) and seeds (inserts) into separate files.
+- Utilize helper functions for SQL queries and data cleanup from the database.
+- Use `npm run db:reset` to apply changes to the database schema or seeds. Note that this command will reset existing data.
 
 ## Dependencies
 
-- Node 10.x or above
+- Node 14.x or above
 - NPM 5.x or above
-- PG 6.x
+- PG 8.5.0
+- Twilio: 4.15.0
+- Express: 4.17.1
+- Sass: 1.35.1
+- Morgan: 1.9.1
+- Ejs: 2.6.2
+- Dotenv: 2.0.0
+- Cookie-session : 2.0.0
+- chalk: 2.4.2
+
+For more information, feel free to contact our team members: Antonio, Maria, Neriman, and Gift.
