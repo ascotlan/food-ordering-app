@@ -20,7 +20,7 @@ router.post("/order_items", (req, res) => {
   if (!req.session.user_id) {
     return res.redirect("/");
   }
-  
+
   const id = req.body.item_id;
   const name = req.body.item_name;
   const price = req.body.item_price;
@@ -50,7 +50,7 @@ router.post("/order_items", (req, res) => {
 });
 
 // Route handler for order confirmation page
-router.get("/orders", noCache, async (req, res) => {
+router.get("/orders", noCache, async(req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
@@ -89,7 +89,7 @@ router.get("/orders", noCache, async (req, res) => {
 });
 
 // Add new confirmed order to database
-router.post("/orders", async (req, res) => {
+router.post("/orders", async(req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
@@ -118,7 +118,7 @@ router.post("/orders", async (req, res) => {
     }
   }
 
-  // query db for required contact infoto send the SMS text to the restaurant admin
+  // query db for required contact info to send the SMS text to the restaurant admin
   let contact = [];
 
   try {
@@ -167,7 +167,7 @@ router.post("/order_items/:id/delete", (req, res) => {
 });
 
 //Admin portal page route handler
-router.get("/orders/:id/restaurants", noCache, async (req, res) => {
+router.get("/orders/:id/restaurants", noCache, async(req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
@@ -224,7 +224,7 @@ router.get("/orders/:id/restaurants", noCache, async (req, res) => {
 });
 
 // Complete the order by updating status to complete
-router.post("/orders/:id/order_status", async (req, res) => {
+router.post("/orders/:id/order_status", async(req, res) => {
   if (!req.session.user_id) {
     return res.redirect("/");
   }
@@ -239,7 +239,7 @@ router.post("/orders/:id/order_status", async (req, res) => {
 });
 
 // Update the order with an ETA
-router.post("/orders/:id/eta", async (req, res) => {
+router.post("/orders/:id/eta", async(req, res) => {
   if (!req.session.user_id) {
     return res.redirect("/");
   }
@@ -257,7 +257,7 @@ router.post("/orders/:id/eta", async (req, res) => {
   sendOrderEta({
     restaurant:req.body.restaurant_name,
     eta: eta[0].eta
-  })
+  });
 
   res.redirect(`/api/widgets/orders/${req.body.restaurant_id}/restaurants`);
 });

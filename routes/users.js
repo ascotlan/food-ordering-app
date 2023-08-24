@@ -10,7 +10,7 @@ const router = express.Router();
 const userQueries = require("../db/queries/users");
 
 // login
-router.get("/login/:id", async (req, res) => {
+router.get("/login/:id", async(req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.id;
   let userType = [];

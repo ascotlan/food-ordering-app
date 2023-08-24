@@ -11,8 +11,8 @@ const userQueries = require("../db/queries/users");
 const userApiQueries = require("../db/queries/users-api");
 const noCache = require("../middleware/noCache");
 
-// homepage route handler
-router.get("/:id", noCache, async (req, res) => {
+//****homepage route handler******//
+router.get("/:id", noCache, async(req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
@@ -43,7 +43,7 @@ router.get("/:id", noCache, async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-  console.log(orderHistory);
+
   res.render("homepage", {
     user: user[0],
     restaurants,
@@ -52,7 +52,7 @@ router.get("/:id", noCache, async (req, res) => {
 });
 
 // Menu page route handler
-router.get("/restaurants/:id", noCache, async (req, res) => {
+router.get("/restaurants/:id", noCache, async(req, res) => {
   //check for auth cookie
   if (!req.session.user_id) {
     return res.redirect("/");
