@@ -68,7 +68,7 @@
               name="eta"
               placeholder="minutes"
               id="order-eta"
-              min="0"
+              min="1"
               required
             />
 
@@ -76,7 +76,8 @@
           </form>
           <%if(order.eta !== null){%>
           <p class="eta-message">
-            <span class="strong">ETA: </span><%=order.eta%> mins
+            <span class="strong">ETA: </span><%=order.eta %> <%= order.eta === 1
+            ? "minute" : "minutes" %>
           </p>
           <%} else{ %>
           <p class="eta-message">Please enter an ETA for this order</p>
