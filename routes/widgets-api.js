@@ -135,11 +135,11 @@ router.post("/orders", async (req, res) => {
 
   //***send order summary sms text to restaurant admin***
   sendAdminNotification(req.session.cart, {
-    restaurantAdminPhone: contact[0].admin_phone_number,
-    orderNumber: order[0].id,
-    customerPhone: contact[0].phone_number,
-    customerName: contact[0].name,
-  });
+  restaurantAdminPhone: contact[0].admin_phone_number,
+  orderNumber: order[0].id,
+  customerPhone: contact[0].phone_number,
+  customerName: contact[0].name,
+ });
 
   //empty cart
   req.session.cart = [];
@@ -247,16 +247,16 @@ router.post("/orders/:id/eta", async (req, res) => {
   let eta = [];
   try {
     eta = eta.concat(
-      await widgetApiQueries.updateOrderEta(req.params.id, req.body.eta)
+      await widgetApiQueries.updateOrderEta(req.params.id, req.body.eta) 
     );
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 
   // Send SMS text to customer
-  sendOrderEta({
-    restaurant:req.body.restaurant_name,
-    eta: eta[0].eta
+   sendOrderEta({
+  restaurant:req.body.restaurant_name,
+  eta: eta[0].eta
   })
 
   res.redirect(`/api/widgets/orders/${req.body.restaurant_id}/restaurants`);

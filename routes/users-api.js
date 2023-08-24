@@ -43,13 +43,13 @@ router.get("/:id", noCache, async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-  console.log(orderHistory);
+ 
   res.render("homepage", {
     user: user[0],
     restaurants,
     orderHistory,
   });
-});
+ });
 
 // Menu page route handler
 router.get("/restaurants/:id", noCache, async (req, res) => {
