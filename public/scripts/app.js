@@ -30,4 +30,4 @@ const obs = new IntersectionObserver(
 );
 obs.observe(sectionHeroEl);
 
-/***********************************************************/
+

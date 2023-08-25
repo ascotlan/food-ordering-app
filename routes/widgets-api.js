@@ -255,8 +255,8 @@ router.post("/orders/:id/eta", async(req, res) => {
 
   // Send SMS text to customer
   sendOrderEta({
-    restaurant:req.body.restaurant_name,
-    eta: eta[0].eta
+    restaurant: req.body.restaurant_name,
+    eta: eta[0].eta,
   });
 
   res.redirect(`/api/widgets/orders/${req.body.restaurant_id}/restaurants`);

@@ -3,7 +3,7 @@ $(document).ready(function() {
   //When screen scolls change CSS classes so that #scroll-top link shows/hides
   $(window).scroll(function() {
     let yAxis = $(this).scrollTop();
-    if (yAxis > 0) {
+    if (yAxis > 160) {
       $("#scroll-top").addClass("show");
       $("#scroll-top").removeClass("hide");
     } else {
