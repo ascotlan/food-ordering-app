@@ -6,7 +6,7 @@ Welcome to the OmniEats Application Project! This collaborative effort brings to
 
 Our project harmoniously combines frontend and backend excellence. The frontend showcases expertise in HTML, CSS, Javascript and some jQuery, resulting in an intuitive and engaging user interface. The backend employs the power of Node.js and a robust PostgreSQL database for dynamic logic and seamless data management.
 
-## Summary Of OmniEat Application
+## Summary Of OmniEats Application
 
 **Landing Page:**
 
