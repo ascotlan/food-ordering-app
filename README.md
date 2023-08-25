@@ -50,29 +50,29 @@ Our project harmoniously combines frontend and backend excellence. The frontend 
 ### Landing page
 
 Hero Section
-![Hero Section]()
+![Hero Section](docs/Landing%20page.png)
 Meals Section
-![Meals Section]()
+![Meals Section](docs/Meal%20page.png)
 Testimonials Section
-![Testimonials Section ]()
+![Testimonials Section ](docs/Testimonials%20.png)
 Business partner section
-![Business partner section]()
+![Business partner section](docs/Become%20A%20Business%20Partner.png)
 
 ### Customer Homepage
 
-![Customer Homepage]()
+![Customer Homepage](docs/order%20history.png)
 
 ### Menu Page
 
-![Menu page]()
+![Menu page](docs/checkout%20page.png)
 
 ### Order Confimation page
 
-![Order confirmation page]()
+![Order confirmation page](docs/order%20confirmation%20page.png)
 
 ### Restaurant Admin portal
 
-![Restaurant admin page]()
+![Restaurant admin page](docs/Restaurant%20admin%20page.png)
 
 ### SMS Texts
 
