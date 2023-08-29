@@ -47,7 +47,7 @@ const usersRoutes = require("./routes/users");
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
-// Note: mount other resources here, using the s ame pattern above
+// Note: mount other resources here, using the same pattern above
 
 // Landing page route handler
 // Warning: avoid creating more routes in this file!
