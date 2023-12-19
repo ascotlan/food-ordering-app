@@ -1,6 +1,10 @@
 # OmniEats Application Project
-[See live website!](https://antonio-omnieats.onrender.com/)  
-
+## See live website
+To view the live website, <a href="https://antonio-omnieats.onrender.com/" target="_blank">click here</a> to open it in a new tab.
+### Important Note
+If you experience a delay when accessing the live instance, it's likely due to the fact that the hosting service puts the instances to sleep after a period of inactivity. Don't worry; the app is still there! It might take a few minutes to wake up, but once it does, you'll be able to explore the functionality.
+ 
+## OmniEats
 Welcome to the OmniEats Application Project! This collaborative effort brings together the skills and dedication of Antonio, Maria, Neriman, and Gift. OmniEats is more than just a food ordering platform – it's a transformative experience that redefines how you engage with restaurants.
 
 ## Project Structure
